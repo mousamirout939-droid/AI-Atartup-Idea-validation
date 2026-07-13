@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// FORCE the production URL. We are not using process.env or import.meta.env
-// to ensure Vercel cannot possibly use the wrong address.
 const baseURL = 'https://ai-atartup-idea-validation.onrender.com/api';
 
 const api = axios.create({
@@ -10,7 +8,8 @@ const api = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json' 
   },
-  timeout: 15000, 
+  // Increased to 30s to prevent premature timeout errors
+  timeout: 30000, 
 });
 
 api.interceptors.request.use((config) => {
@@ -24,7 +23,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('API Error:', error.response || error.message);
+    // Handle timeout error specifically
+    if (error.code === 'ECONNABORTED') {
+      console.error('Request timed out.');
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('auth-storage');

@@ -17,7 +17,7 @@ const register = asyncHandler(async (req, res) => {
   const user = await User.create({ name, email, password });
   await Subscription.create({ user: user._id, plan: 'free' });
 
-  sendWelcomeEmail(user).catch(() => {});
+  sendWelcomeEmail(user).catch(console.error);
 
   const token = signToken(user._id);
   sendResponse(res, 201, { user: user.toSafeObject(), token }, 'Account created successfully');
