@@ -1,0 +1,8 @@
+node_modules/
+.env
+uploads/reports/*
+uploads/pitchdecks/*
+!uploads/reports/.gitkeep
+!uploads/pitchdecks/.gitkeep
+npm-debug.log*
+.DS_Store

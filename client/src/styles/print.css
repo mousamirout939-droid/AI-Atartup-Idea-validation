@@ -1,0 +1,15 @@
+/* Print-friendly overrides — hides nav/footer/sidebar/buttons when a user
+   prints an idea detail page directly from the browser instead of using the
+   PDF export feature. Imported ad-hoc where needed via `import './styles/print.css'`. */
+@media print {
+  nav, footer, aside, button {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
