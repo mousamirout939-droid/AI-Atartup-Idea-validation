@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Startup Idea Validator
 
 A full-stack MERN application that uses OpenAI to validate startup ideas across nine dimensions — SWOT, market analysis, competitor analysis, investor scoring, revenue modeling, cost estimation, tech stack suggestions, business plan generation, and pitch deck creation — with PDF/PPTX export, Razorpay-powered subscriptions, and a full admin panel.
@@ -82,3 +83,6 @@ If you'd rather set it up manually instead of using the blueprint: Root Director
 ## License
 
 See [LICENSE](./LICENSE).
+=======
+# AI-Atartup-Idea-validation
+>>>>>>> 00072a703b269ad27be73207b7aa761c8224cd06
