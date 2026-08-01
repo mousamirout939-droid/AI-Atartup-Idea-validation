@@ -11,12 +11,6 @@ const api = axios.create({
   timeout: 30000,
 });
 
-// Reads the token whether it's stored as a flat 'token' key, OR nested
-// inside a persisted store object (e.g. Zustand persist / Redux Persist
-// commonly save everything under one key like 'auth-storage').
-// If your app only ever uses a flat 'token' key, the first check alone
-// is enough — but this covers both so a storage-shape mismatch can't
-// silently break auth.
 function getStoredToken() {
   if (typeof window === 'undefined') return null;
 
@@ -27,8 +21,6 @@ function getStoredToken() {
   if (persisted) {
     try {
       const parsed = JSON.parse(persisted);
-      // Adjust this path to match your actual store shape, e.g.
-      // parsed.state.token for Zustand persist, or parsed.token directly.
       return parsed?.state?.token || parsed?.token || null;
     } catch {
       return null;
@@ -59,8 +51,6 @@ api.interceptors.response.use(
     } else if (!error.response) {
       console.error('Network error, no response received:', error.config?.url, error.message);
     } else {
-      // Log the actual status + response body so failures are visible
-      // in the console instead of just failing silently.
       console.error(
         `API error ${error.response.status} on ${error.config?.url}:`,
         error.response.data
