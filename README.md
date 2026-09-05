@@ -35,7 +35,7 @@ A full-stack MERN application that uses OpenAI to validate startup ideas across 
 cd server
 cp .env.example .env   # fill in MONGO_URI, JWT_SECRET, OPENAI_API_KEY at minimum
 npm install
-npm run dev             # starts on http://localhost:5050
+npm run dev             # starts on http://localhost:5000
 ```
 
 Optional: create an admin user (`ADMIN_EMAIL` / `ADMIN_PASSWORD` env vars, or defaults):

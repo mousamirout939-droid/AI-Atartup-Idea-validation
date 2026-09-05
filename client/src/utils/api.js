@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 const PRODUCTION_FALLBACK_URL = 'https://ai-atartup-idea-validation.onrender.com/api';
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const isLocalApiUrl = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//.test(configuredApiUrl || '');
 
-const baseURL = import.meta.env.VITE_API_URL || PRODUCTION_FALLBACK_URL;
+export const baseURL = import.meta.env.PROD && isLocalApiUrl
+  ? PRODUCTION_FALLBACK_URL
+  : configuredApiUrl || PRODUCTION_FALLBACK_URL;
+export const apiOrigin = baseURL.replace(/\/api\/?$/, '');
 
 const api = axios.create({
   baseURL,

@@ -5,10 +5,10 @@ import Loader from '../components/common/loader';
 import EmptyState from '../components/common/emptystate';
 import { useReportStore } from '../store/reportstore';
 import { formatDate } from '../utils/formatters';
+import { apiOrigin } from '../utils/api';
 
 export default function Reports() {
   const { reports, loading, getMyReports } = useReportStore();
-  const apiBase = (import.meta.env.VITE_API_URL || '').replace(/\/api$/, '');
 
   useEffect(() => { getMyReports(); }, [getMyReports]);
 
@@ -29,7 +29,7 @@ export default function Reports() {
               {reports.map((r) => (
                 <a
                   key={r._id}
-                  href={`${apiBase}${r.fileUrl}`}
+                  href={`${apiOrigin}${r.fileUrl}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center justify-between gap-3 px-6 py-4 hover:bg-gray-50"
