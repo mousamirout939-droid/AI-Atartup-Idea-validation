@@ -53,6 +53,14 @@ npm install
 npm run dev              # starts on http://localhost:5173
 ```
 
+### Role-based access
+
+- Customer login: `/login`
+- Company login: `/company/login`
+- Admin login: `/admin/login`
+
+Company accounts are managed by an admin. From **Admin → Users**, change an account's role to **Company**. Company users can then review submitted ideas and see each submitter's name and email from the company dashboard.
+
 ## Deployment
 
 ### Backend → Render

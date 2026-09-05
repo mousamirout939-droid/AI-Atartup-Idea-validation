@@ -87,6 +87,22 @@ const getMyIdeas = asyncHandler(async (req, res) => {
   sendResponse(res, 200, { ideas, total, page: Number(page), pages: Math.ceil(total / limit) }, 'Ideas fetched');
 });
 
+const getCompanyIdeas = asyncHandler(async (req, res) => {
+  const { page = 1, limit = 20, search = '', status } = req.query;
+  const query = {};
+  if (status) query.status = status;
+  if (search) query.$text = { $search: search };
+
+  const ideas = await StartupIdea.find(query)
+    .populate('user', 'name email')
+    .sort({ createdAt: -1 })
+    .skip((page - 1) * limit)
+    .limit(Number(limit));
+
+  const total = await StartupIdea.countDocuments(query);
+  sendResponse(res, 200, { ideas, total, page: Number(page), pages: Math.ceil(total / limit) }, 'Submitted ideas fetched');
+});
+
 const getIdeaById = asyncHandler(async (req, res) => {
   const idea = await StartupIdea.findOne({ _id: req.params.id, user: req.user._id });
   if (!idea) throw new ApiError(404, 'Startup idea not found');
@@ -197,6 +213,7 @@ const generatePitchDeckForIdea = asyncHandler(async (req, res) => {
 module.exports = {
   createIdea,
   getMyIdeas,
+  getCompanyIdeas,
   getIdeaById,
   updateIdea,
   deleteIdea,

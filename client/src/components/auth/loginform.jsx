@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useAuthStore } from '../../store/authstore';
 import Button from '../common/button';
 
-export default function LoginForm() {
+export default function LoginForm({ expectedRole = 'user' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuthStore();
@@ -16,11 +16,16 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(form);
+      const user = await login(form);
+      if (user.role !== expectedRole) {
+        useAuthStore.getState().logout();
+        throw new Error(`This login is for ${expectedRole} accounts only.`);
+      }
       toast.success('Welcome back!');
-      navigate(location.state?.from?.pathname || '/dashboard', { replace: true });
+      const defaultPath = expectedRole === 'admin' ? '/admin' : expectedRole === 'company' ? '/company' : '/dashboard';
+      navigate(location.state?.from?.pathname || defaultPath, { replace: true });
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed');
+      toast.error(error.response?.data?.message || error.message || 'Login failed');
     } finally {
       setLoading(false);
     }

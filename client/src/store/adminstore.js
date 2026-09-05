@@ -31,6 +31,11 @@ export const useAdminStore = create((set) => ({
     set((state) => ({ users: state.users.map((u) => (u._id === id ? data.data.user : u)) }));
   },
 
+  updateUserRole: async (id, role) => {
+    const { data } = await api.put(`/admin/users/${id}/role`, { role });
+    set((state) => ({ users: state.users.map((user) => (user._id === id ? data.data.user : user)) }));
+  },
+
   getIdeas: async (params = {}) => {
     set({ loading: true });
     const { data } = await api.get('/admin/ideas', { params });

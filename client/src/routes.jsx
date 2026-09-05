@@ -21,6 +21,9 @@ import AdminDashboard from './pages/admindashboard';
 import AdminUsers from './pages/adminusers';
 import AdminIdeas from './pages/adminideas';
 import AdminAnalytics from './pages/adminanalytics';
+import CompanyLogin from './pages/companylogin';
+import AdminLogin from './pages/adminlogin';
+import CompanyDashboard from './pages/companydashboard';
 
 import ProtectedRoute from './components/common/protectedroute';
 
@@ -33,6 +36,8 @@ export default function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/company/login" element={<CompanyLogin />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
@@ -45,6 +50,10 @@ export default function AppRoutes() {
         <Route path="/ideas/:id" element={<IdeaDetail />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/profile" element={<Profile />} />
+      </Route>
+
+      <Route element={<ProtectedRoute requiredRole="company" allowAdmin={false} />}>
+        <Route path="/company" element={<CompanyDashboard />} />
       </Route>
 
       {/* Admin routes */}

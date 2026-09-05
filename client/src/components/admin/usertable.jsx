@@ -1,7 +1,7 @@
 import { ShieldCheck, ShieldOff } from 'lucide-react';
 import { formatDate } from '../../utils/formatters';
 
-export default function UserTable({ users = [], onToggleStatus }) {
+export default function UserTable({ users = [], onToggleStatus, onRoleChange }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm">
@@ -22,7 +22,13 @@ export default function UserTable({ users = [], onToggleStatus }) {
               <td className="py-3 pr-4 font-medium text-gray-900">{u.name}</td>
               <td className="py-3 pr-4 text-gray-500">{u.email}</td>
               <td className="py-3 pr-4"><span className="badge bg-brand-50 text-brand-700 capitalize">{u.plan}</span></td>
-              <td className="py-3 pr-4 capitalize text-gray-500">{u.role}</td>
+              <td className="py-3 pr-4">
+                <select value={u.role} onChange={(event) => onRoleChange(u._id, event.target.value)} className="rounded-lg border border-gray-200 bg-white px-2 py-1 text-xs capitalize text-gray-600">
+                  <option value="user">Customer</option>
+                  <option value="company">Company</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </td>
               <td className="py-3 pr-4 text-gray-500">{formatDate(u.createdAt)}</td>
               <td className="py-3 pr-4">
                 <span className={`badge ${u.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>

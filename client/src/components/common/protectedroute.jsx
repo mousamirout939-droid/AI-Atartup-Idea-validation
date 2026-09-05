@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authstore';
 import Loader from './loader';
 
-export default function ProtectedRoute({ requiredRole }) {
+export default function ProtectedRoute({ requiredRole, allowAdmin = true }) {
   const { user, loading } = useAuthStore();
   const location = useLocation();
 
@@ -12,7 +12,7 @@ export default function ProtectedRoute({ requiredRole }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (requiredRole && user.role !== requiredRole && user.role !== 'admin') {
+  if (requiredRole && user.role !== requiredRole && (!allowAdmin || user.role !== 'admin')) {
     return <Navigate to="/dashboard" replace />;
   }
 

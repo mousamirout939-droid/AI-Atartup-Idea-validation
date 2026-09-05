@@ -37,7 +37,7 @@ const toggleUserStatus = asyncHandler(async (req, res) => {
 
 const updateUserRole = asyncHandler(async (req, res) => {
   const { role } = req.body;
-  if (!['user', 'admin'].includes(role)) throw new ApiError(400, 'Invalid role');
+  if (!['user', 'company', 'admin'].includes(role)) throw new ApiError(400, 'Invalid role');
 
   const user = await User.findByIdAndUpdate(req.params.id, { role }, { new: true });
   if (!user) throw new ApiError(404, 'User not found');

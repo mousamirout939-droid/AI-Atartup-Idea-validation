@@ -1,5 +1,6 @@
 import LoginForm from '../components/auth/loginform';
 import { Rocket } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -14,6 +15,10 @@ export default function Login() {
         </div>
         <div className="card p-6">
           <LoginForm />
+          <div className="mt-5 flex justify-center gap-4 border-t border-gray-100 pt-4 text-xs text-gray-500">
+            <Link to="/company/login" className="hover:text-brand-600">Company login</Link>
+            <Link to="/admin/login" className="hover:text-brand-600">Admin login</Link>
+          </div>
         </div>
       </div>
     </div>

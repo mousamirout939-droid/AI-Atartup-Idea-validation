@@ -8,6 +8,7 @@ import {
   BarChart3,
   MessageSquare,
   ShieldCheck,
+  BriefcaseBusiness,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authstore';
 
@@ -26,9 +27,13 @@ const adminLinks = [
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];
 
+const companyLinks = [
+  { to: '/company', label: 'Submitted Ideas', icon: BriefcaseBusiness },
+];
+
 export default function Sidebar({ variant = 'user' }) {
   const { user } = useAuthStore();
-  const links = variant === 'admin' ? adminLinks : userLinks;
+  const links = variant === 'admin' ? adminLinks : variant === 'company' ? companyLinks : userLinks;
 
   return (
     <aside className="hidden w-60 shrink-0 border-r border-gray-100 bg-white px-3 py-6 lg:block">

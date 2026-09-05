@@ -71,6 +71,11 @@ export default function Navbar() {
                       <Bell className="h-4 w-4" /> Admin Panel
                     </Link>
                   )}
+                  {user.role === 'company' && (
+                    <Link to="/company" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                      <LayoutDashboard className="h-4 w-4" /> Company Portal
+                    </Link>
+                  )}
                   <button onClick={handleLogout} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50">
                     <LogOut className="h-4 w-4" /> Logout
                   </button>

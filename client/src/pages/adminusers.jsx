@@ -6,7 +6,7 @@ import Loader from '../components/common/loader';
 import { useAdminStore } from '../store/adminstore';
 
 export default function AdminUsers() {
-  const { users, loading, getUsers, toggleUserStatus } = useAdminStore();
+  const { users, loading, getUsers, toggleUserStatus, updateUserRole } = useAdminStore();
   const [search, setSearch] = useState('');
 
   useEffect(() => { getUsers({ search }); }, [search, getUsers]);
@@ -20,7 +20,7 @@ export default function AdminUsers() {
           <div className="w-full sm:w-72"><SearchBar value={search} onChange={setSearch} placeholder="Search by name or email..." /></div>
         </div>
         <div className="card p-6">
-          {loading ? <Loader /> : <UserTable users={users} onToggleStatus={toggleUserStatus} />}
+          {loading ? <Loader /> : <UserTable users={users} onToggleStatus={toggleUserStatus} onRoleChange={updateUserRole} />}
         </div>
       </div>
     </div>
