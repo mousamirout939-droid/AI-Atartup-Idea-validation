@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const baseURL = 'https://ai-atartup-idea-validation.onrender.com/api';
+const PRODUCTION_FALLBACK_URL = 'https://ai-atartup-idea-validation.onrender.com/api';
+
+const baseURL = import.meta.env.VITE_API_URL || PRODUCTION_FALLBACK_URL;
 
 const api = axios.create({
   baseURL,
